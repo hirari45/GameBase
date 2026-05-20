@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Engine/Model.h"
 #include "Engine/Input.h"
+#include "Bullet.h"
 
 Player::Player(GameObject* parent)
 //親のポインタ、オブジェクトの名前
@@ -29,7 +30,7 @@ void Player::Update()
 	}
 	if (Input::IsKey(DIK_SPACE))
 	{
-		//Instantiate<Bullet>(this);
+		Instantiate<Bullet>(this);
 	}
 
 }

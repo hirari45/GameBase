@@ -1,9 +1,14 @@
 #include "Bullet.h"
 #include "Engine/Model.h"
-#include "Engine/Input.h"
+#include "Player.h"
+#include "Engine/SphereCollider.h"
 
 Bullet::Bullet(GameObject* parent)
-	:GameObject(parent, "Bullet"), hModel_(-1)
+	:GameObject(parent, "Bullet"), hModel_(-1), speed_(0.5f)
+{
+}
+
+Bullet::~Bullet()
 {
 }
 
@@ -11,18 +16,29 @@ void Bullet::Initialize()
 {
 	hModel_ = Model::Load("Bullet.fbx");
 	assert(hModel_ >= 0);
-	tr_.rotate_.y = 180.0f;
-	tr_.scale_ = { 0.5f, 0.5f, 0.5 };
-	tr_.position_ = { 0.0f, -3.0f, 5.0f };
+	transform_.scale_ = { 0.25f, 0.25f, 0.25 };
+
+	transform_.rotate_.y = 180.0f;
+
+	//Player* player = static_cast<Player*>(FindObject("Player"));
+	SphereCollider* collider = new SphereCollider(XMFLOAT3(0.0f, 0.0f, 0.0f), 0.5f);
+	AddCollider(collider);
+
 }
+
 
 void Bullet::Update()
 {
+	transform_.position_.z = transform_.position_.z + speed_;
+	if (transform_.position_.z > 50.0f)
+	{
+		KillMe();
+	}
 }
 
 void Bullet::Draw()
 {
-	Model::SetTransform(hModel_, tr_);
+	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
 }
 

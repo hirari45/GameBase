@@ -13,7 +13,8 @@ void Player::Initialize()
 {
 	hModel_ = Model::Load("spaceShip.fbx");
 	assert(hModel_ >= 0);
-	tr_.position_ = { 0.0f, -3.0f, 0.0f };
+	transform_.rotate_.y = 180.0f;
+	transform_.position_ = { 0.0f, 0.0f, 0.0f };
 }
 
 void Player::Update()
@@ -21,23 +22,24 @@ void Player::Update()
 	if (Input::IsKey(DIK_LEFT) || Input::IsKey(DIK_A))
 	{
 		//左に移動
-		tr_.position_.x -= 0.2f;
+		transform_.position_.x -= 0.2f;
 	}
 	if (Input::IsKey(DIK_RIGHT) || Input::IsKey(DIK_D))
 	{
 		//右に移動
-		tr_.position_.x += 0.2f;
+		transform_.position_.x += 0.2f;
 	}
-	if (Input::IsKey(DIK_SPACE))
+	if (Input::IsKeyDown(DIK_SPACE))
 	{
-		Instantiate<Bullet>(this);
+		//右に移動
+		Bullet *pBullet = Instantiate<Bullet>(this->GetParent());
+		pBullet->SetPosition(transform_.position_);
 	}
-
 }
 
 void Player::Draw()
 {
-	Model::SetTransform(hModel_, tr_);
+	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
 }
 

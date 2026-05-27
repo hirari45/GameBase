@@ -1,6 +1,8 @@
 #include "ClearScene.h"
 #include "Engine/GameObject.h"
 #include "Engine/Image.h"
+#include "Engine/Input.h"
+#include "Engine/SceneManager.h"
 
 
 ClearScene::ClearScene(GameObject* parent)
@@ -16,6 +18,14 @@ void ClearScene::Initialize()
 
 void ClearScene::Update()
 {
+	if (Input::IsKeyDown(DIK_T))
+	{
+		//見つからない場合はnullptrを返すのでnullptr出ないことを確認してから使う
+		//SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		SceneManager* pSceneManager = (SceneManager*)(this->GetParent());
+		pSceneManager->ChangeScene(SCENE_ID_TEST);
+	}
+
 }
 
 void ClearScene::Draw()

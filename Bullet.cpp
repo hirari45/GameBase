@@ -14,9 +14,9 @@ Bullet::~Bullet()
 
 void Bullet::Initialize()
 {
-	hModel_ = Model::Load("Bullet.fbx");
+	hModel_ = Model::Load("Tanisimaru.fbx");
 	assert(hModel_ >= 0);
-	transform_.scale_ = { 0.25f, 0.25f, 0.25 };
+	transform_.scale_ = { 0.5f, 0.5f, 0.5 };
 
 	transform_.rotate_.y = 180.0f;
 

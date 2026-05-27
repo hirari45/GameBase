@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "Engine/SceneManager.h"
+#include "Engine/Camera.h"
 
 PlayScene::PlayScene(GameObject* parent)  //メンバの設定はこっち
 	:GameObject(parent, "PlayScene"), hModel_(-1)
@@ -16,6 +17,9 @@ void PlayScene::Initialize() //その他はこっち
 	//assert(hModel_ >= 0);
 	Instantiate<Player>(this);
 	Instantiate<Enemy>(this);
+
+	Camera::SetPosition(XMFLOAT3(0.0f, 5.0f, -10.0f));
+	Camera::SetTarget(XMFLOAT3(0.0f, 0.0f, 10.0f));
 }
 
 void PlayScene::Update()
@@ -28,7 +32,7 @@ void PlayScene::Update()
 	//ot_.position_.x = 6.0f * sin(time);
 	////float posx = 6.0 * sin(0.2f*time);
 	////ot_.position_.x = posx;
-	if (FindObject("Enemy")==nullptr) {
+	if (FindObject("Enemy") == nullptr) {
 		SceneManager* pSceneManager = (SceneManager*)(this->GetParent());
 		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
 	}

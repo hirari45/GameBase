@@ -17,6 +17,5 @@ private:
 	//Transform tr_;//一や向きなどを管理するオブジェクト
 	float speed_;//弾の速さ
 	//Transform ot_;//おでん用のトランスフォーム
-
+	int hp_;
 };
-
